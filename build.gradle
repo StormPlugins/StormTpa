@@ -1,0 +1,77 @@
+plugins {
+    id 'java'
+    id 'net.minecrell.plugin-yml.bukkit' version '0.3.0'
+    id 'com.github.johnrengelman.shadow' version '5.0.0'
+}
+
+group = 'com.fabricioaquiles.stormtpa'
+version = '1.0'
+
+tasks.build.dependsOn('shadowJar')
+
+repositories {
+    mavenCentral()
+    jcenter()
+    maven {
+        name = 'spigotmc-repo'
+        url = 'https://hub.spigotmc.org/nexus/content/repositories/snapshots/'
+    }
+    maven {
+        name = 'CodeMC'
+        url = 'https://repo.codemc.org/repository/maven-public/'
+    }
+    maven {
+        name = 'sonatype'
+        url = 'https://oss.sonatype.org/content/groups/public/'
+    }
+    
+    maven { url = 'https://oss.sonatype.org/content/repositories/snapshots' }
+  	maven { url = 'https://oss.sonatype.org/content/repositories/central' }
+
+    maven { url 'https://jitpack.io/' }
+}
+
+dependencies {
+
+    compileOnly 'com.github.MilkBowl:VaultAPI:1.7'
+	compileOnly 'org.spigotmc:spigot-api:1.8.8-R0.1-SNAPSHOT'
+	
+    compileClasspath files("libs/spigot-1.8.8-R0.1-SNAPSHOT-latest.jar")
+	
+    implementation 'com.github.HenryFabio:sql-provider:9561f20fd2'
+    implementation 'com.github.HenryFabio:configuration-injector:main-SNAPSHOT'
+    
+    implementation 'de.tr7zw:item-nbt-api-plugin:2.8.0'
+    implementation 'com.github.SaiintBrisson:command-framework:1.1.0'
+
+    def lombok = 'org.projectlombok:lombok:1.18.16'
+    compileOnly lombok
+    annotationProcessor lombok
+
+}
+
+shadowJar {
+
+    archiveName("${project.name}-${project.version}.jar")
+    relocate "com.henryfabio.minecraft.configinjector", "${project.group}.libs.configinjector"
+    relocate "com.henryfabio.sqlprovider", "${project.group}.libs.sqlprovider"
+    relocate "de.tr7zw", "${project.group}.libs.nbt"
+    relocate "me.saiintbrisson", "${project.group}.libs.command"
+
+}
+
+bukkit {
+
+    version = "${project.version}"
+    main = "${project.group}.${project.name}"
+    author = 'Fabricio Aquiles'
+    softDepend = ['StormPlugins']
+
+}
+
+compileJava {
+    options.encoding = "UTF-8"
+
+    sourceCompatibility = '1.8'
+    targetCompatibility = '1.8'
+}

@@ -1,0 +1,13 @@
+Menus:
+  profile:
+    name: "Perfil - Tpa"
+    size: 36
+    tpa:
+      slot: 13
+      item: "ENDER_PEARL:0"
+      name: "&aTpa"
+      lore:
+        - "&7Desative ou ative o recebimento"
+        - '&7de pedidos de teleporte.'
+    tpaToggle:
+      slot: 22

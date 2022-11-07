@@ -1,0 +1,14 @@
+MySQL:
+  host: "localhost"
+  user: "root"
+  password: "1234"
+  database: "db"
+
+SQLite:
+  file: "database.db"
+
+Geral:
+  sqlType: SQLITE # SQLITE OU MYSQL
+  tpaTimeExpire: 1 # Tempo para expirar tpa em minutos
+  tpaCooldownTime: 1 # Cooldown para enviar outro tpa em minutos
+  tpaNoDelayPermission: "storm.tpa"
